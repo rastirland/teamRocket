@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainPanelController">
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.createQueryController">
    <children>
       <AnchorPane layoutY="-6.0" prefHeight="414.0" prefWidth="658.0">
          <children>
@@ -16,7 +16,7 @@
                   <Font size="38.0" />
                </font>
             </Label>
-            <Button fx:id="btn_PropertyList" layoutX="39.0" layoutY="158.0" mnemonicParsing="false" onAction="#goToPropertyList" prefHeight="25.0" prefWidth="136.0" text="View Queries" />
+            <Button fx:id="btn_addQuery" layoutX="39.0" layoutY="158.0" mnemonicParsing="false" onAction="#goToPropertyList" prefHeight="25.0" prefWidth="136.0" text="View Queries" />
             <ImageView fitHeight="406.0" fitWidth="417.0" layoutX="211.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@barclays-logo-1.png" />

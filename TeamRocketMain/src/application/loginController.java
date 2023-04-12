@@ -156,7 +156,7 @@ public class loginController {
         ArrayList<admin> adminList = new ArrayList<>();
 
         // Read CSV file
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\rasti\\OneDrive - The University of Northampton\\Desktop\\OneDrive - The University of Northampton\\eclipse-workspace\\TeamRocketMain\\userData.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\userData.csv"));
         String line;
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");

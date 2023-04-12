@@ -8,11 +8,26 @@ public class customerQuery {
 	protected String queryusername;
 	protected String queryemail;
 	protected String querymessage;
+	
+	protected String queryType;
+	protected String queryPrority;
 	protected Date  queryOpenDate;
 	protected Date  queryclosedDate;
 	
 	
 	
+	public String getQueryType() {
+		return queryType;
+	}
+//	public void setQueryType(String queryType) {
+//		this.queryType = queryType;
+//	}
+	public String getQueryPrority() {
+		return queryPrority;
+	}
+	public void setQueryPrority(String queryPrority) {
+		this.queryPrority = queryPrority;
+	}
 	public String getQueryURN() {
 		return queryURN;
 	}
@@ -48,6 +63,10 @@ public class customerQuery {
 	}
 	public void setQueryclosedDate(Date queryclosedDate) {
 		this.queryclosedDate = queryclosedDate;
+	}
+	public void setQueryType(String queryType) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
