@@ -1,5 +1,6 @@
 package application;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class customerQuery {
@@ -16,6 +17,20 @@ public class customerQuery {
 	
 	
 	
+	public customerQuery(String queryURN, String queryusername, String queryemail, String querymessage,
+			String queryType, String queryPrority, Date queryOpenDate, Date queryclosedDate) {
+	
+		
+		this.queryURN = queryURN;
+		this.queryusername = queryusername;
+		this.queryemail = queryemail;
+		this.querymessage = querymessage;
+		this.queryType = queryType;
+		this.queryPrority = queryPrority;
+		this.queryOpenDate = queryOpenDate;
+		this.queryclosedDate = queryclosedDate;
+		
+	}
 	public String getQueryType() {
 		return queryType;
 	}
@@ -65,6 +80,10 @@ public class customerQuery {
 		this.queryclosedDate = queryclosedDate;
 	}
 	public void setQueryType(String queryType) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setQueryOpenDate(LocalDateTime localDateTime) {
 		// TODO Auto-generated method stub
 		
 	}

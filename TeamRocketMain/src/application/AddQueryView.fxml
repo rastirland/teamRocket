@@ -9,14 +9,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="579.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.createQueryController">
+<AnchorPane prefHeight="579.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.addQueryController">
    <children>
       <TextField fx:id="queryNameField" layoutX="217.0" layoutY="111.0" />
       <TextField fx:id="queryEmailField" layoutX="217.0" layoutY="148.0" />
       <TextArea fx:id="queryTextArea" layoutX="117.0" layoutY="196.0" prefHeight="159.0" prefWidth="421.0" />
       <Label layoutX="127.0" layoutY="115.0" text="Senders Name" />
       <Label layoutX="127.0" layoutY="152.0" text="Senders Email" />
-      <Button fx:id="addQuery" layoutX="260.0" layoutY="485.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="135.0" text="Create Query" />
+      <Button fx:id="addQueryBtn" layoutX="161.0" layoutY="485.0" mnemonicParsing="false" onAction="#addQueryBtn" prefHeight="45.0" prefWidth="135.0" text="Create Query" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="228.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@barclays-logo-1.png" />
@@ -26,5 +26,6 @@
       <Spinner fx:id="PriorityFIeld" layoutX="201.0" layoutY="417.0" />
       <Label layoutX="117.0" layoutY="381.0" text="Query Type" />
       <Label layoutX="117.0" layoutY="421.0" prefHeight="17.0" prefWidth="45.0" text="Priority" />
+      <Button fx:id="BackToCreator" layoutX="361.0" layoutY="485.0" mnemonicParsing="false" onAction="#BackToCreator" prefHeight="45.0" prefWidth="135.0" text="back" />
    </children>
 </AnchorPane>

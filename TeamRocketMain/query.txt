@@ -1,0 +1,6 @@
+Query URN: 4766
+Username: JohnDoe
+Email: johndoe@example.com
+Message: This is a sample query message.
+Open Date: Wed Apr 12 20:21:42 BST 2023
+Closed Date: null

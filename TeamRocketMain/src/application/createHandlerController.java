@@ -35,7 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
-public class createQueryController {
+public class createHandlerController {
 		@FXML
 		private Button btn_viewQuery;
 		
@@ -47,12 +47,15 @@ public class createQueryController {
 		private Button btn_sendQuery;
 	    
 	    @FXML
+		private Button btn_acceptQuery;
+	    
+	    @FXML
 		TextField searchField;
 		
 	    @FXML
 		TableView<String[]> userTable;
 		
-		
+
 
 		public void searchBar(ActionEvent event) {
 		    String searchTerm = searchField.getText().toLowerCase();
@@ -85,7 +88,7 @@ public class createQueryController {
 		    ObservableList<String[]> data = FXCollections.observableArrayList();
 
 		    // Specify the file path of the CSV file
-		    String csvFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\customer_queries.csv";
+		    String csvFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\handlerOpenQueries.csv";
 
 		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 		        String line;
@@ -172,36 +175,14 @@ public void createQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmExc
 }
 
 
-//public void sendQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmException {
-//    // Get the selected row from the TableView
-//    String[] selectedRow = userTable.getSelectionModel().getSelectedItem();
-//    
-//    if (selectedRow != null) {
-//        // Create a new CSV file for handling open queries
-//        String handlerFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\handlerOpenQueries.csv";
-//        
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(handlerFile))) {
-//            // Write the selected row to the CSV file
-//            bw.write(String.join(",", selectedRow));
-//            bw.newLine();
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//        
-//        System.out.println("Selected row saved to handlerOpenQueries.csv");
-//    } else {
-//        System.out.println("No row selected");
-//    }
-//}
-
 
 public void sendQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmException {
-	  // Get the selected row from the TableView
+    // Get the selected row from the TableView
     String[] selectedRow = userTable.getSelectionModel().getSelectedItem();
 
     if (selectedRow != null) {
         // Create a new CSV file for handling open queries
-        String handlerFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\handlerOpenQueries.csv";
+        String handlerFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\customer_queries.csv";
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(handlerFile, true))) {
             // Append the selected row to the CSV file
@@ -219,7 +200,51 @@ public void sendQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmExcep
         // Create a new thread to save the changes to the CSV file
         Thread saveChangesThread = new Thread(() -> {
             List<String[]> updatedData = new ArrayList<>(userTable.getItems());
-            try (FileWriter writer = new FileWriter("C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\customer_queries.csv")) {
+            try (FileWriter writer = new FileWriter("C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\handlerOpenQueries.csv")) {
+                for (String[] row : updatedData) {
+                    writer.write(String.join(",", row));
+                    writer.write("\n");
+                }
+            } catch (IOException ex) {
+                System.out.println("Error writing to file: " + ex.getMessage());
+            }
+        });
+
+        saveChangesThread.start();
+
+    } else {
+        System.out.println("No row selected");
+    }
+}
+
+
+
+
+public void acceptQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmException {
+	  // Get the selected row from the TableView
+    String[] selectedRow = userTable.getSelectionModel().getSelectedItem();
+
+    if (selectedRow != null) {
+        // Create a new CSV file for handling open queries
+        String handlerFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\analystQueries.csv";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(handlerFile, true))) {
+            // Append the selected row to the CSV file
+            bw.write(String.join(",", selectedRow));
+            bw.newLine(); // Add newline character
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Selected row appended to customer_queries.csv");
+
+        // Remove the selected row from the table
+        userTable.getItems().remove(selectedRow);
+
+        // Create a new thread to save the changes to the CSV file
+        Thread saveChangesThread = new Thread(() -> {
+            List<String[]> updatedData = new ArrayList<>(userTable.getItems());
+            try (FileWriter writer = new FileWriter("C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\handlerOpenQueries.csv")) {
                 for (String[] row : updatedData) {
                     writer.write(String.join(",", row));
                     writer.write("\n");
@@ -237,4 +262,5 @@ public void sendQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmExcep
 }
 
 }
+
 
