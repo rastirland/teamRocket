@@ -81,7 +81,10 @@ public class addQueryController {
 
         // Configure the Spinner with the type options
         SpinnerValueFactory<String> typeValueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(typeOptions);
-        TypeFIeld.setValueFactory(typeValueFactory);
+        TypeFIeld.setValueFactory (typeValueFactory);
+    }
+    private String getCurrentUsername() {
+        return loginController.currentUsername;
     }
     
     public void addQueryBtn(ActionEvent e) throws IOException, NoSuchAlgorithmException {
@@ -89,7 +92,7 @@ public class addQueryController {
     	    String email = queryEmailField.getText();
     	    String message = queryTextArea.getText();
     	    // generating a random number in id, as id is set to not editable on the fxml file
-    	    customerQuery newQuery = new customerQuery("", "", "", "", "", "", null, null);
+    	    customerQuery newQuery = new customerQuery("", "", "", "", "", "", "", null);
     	    Random rand = new Random();
 
     	    // using the form to collect data with the getters and setters in property.java
@@ -98,6 +101,7 @@ public class addQueryController {
     	    newQuery.setQueryusername(queryNameField.getText());
     	    newQuery.setQueryemail(queryEmailField.getText());
     	    newQuery.setQuerymessage(queryTextArea.getText());
+    	    newQuery.setQueryCreatorID(loginController.currentUsername);
 
     	    String priority = PriorityFIeld.getValue();
     	    String type = TypeFIeld.getValue();
@@ -113,7 +117,7 @@ public class addQueryController {
 
     	    // Add the new query to the CSV file
     	    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\customer_queries.csv", true));
-    	    writer.write(newQuery.getQueryURN() + "," + newQuery.getQueryusername() + "," + newQuery.getQueryemail() + "," + newQuery.getQuerymessage() + "," + newQuery.getQueryPrority() + "," + formattedDate); // Include the formatted date value
+    	    writer.write(newQuery.getQueryURN() + "," + newQuery.getQueryusername() + "," + newQuery.getQueryemail() + "," + newQuery.getQuerymessage() + "," + newQuery.getQueryPrority() + ","+ newQuery.getQueryType() + "," + formattedDate + "," + newQuery.getQueryID()); // Include the formatted date value
     	    writer.newLine();
     	    writer.close();
 

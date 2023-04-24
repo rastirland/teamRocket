@@ -14,11 +14,12 @@ public class customerQuery {
 	protected String queryPrority;
 	protected Date  queryOpenDate;
 	protected Date  queryclosedDate;
+	private String creatorID;
 	
 	
 	
 	public customerQuery(String queryURN, String queryusername, String queryemail, String querymessage,
-			String queryType, String queryPrority, Date queryOpenDate, Date queryclosedDate) {
+			String queryType, String queryPrority, String creatorID ,Date queryOpenDate) {
 	
 		
 		this.queryURN = queryURN;
@@ -34,15 +35,21 @@ public class customerQuery {
 	public String getQueryType() {
 		return queryType;
 	}
-//	public void setQueryType(String queryType) {
-//		this.queryType = queryType;
-//	}
+	public void setQueryType(String queryType) {
+		this.queryType = queryType;
+	}
 	public String getQueryPrority() {
 		return queryPrority;
 	}
 	public void setQueryPrority(String queryPrority) {
 		this.queryPrority = queryPrority;
 	}
+
+	public void setQueryOpenDate(LocalDateTime localDateTime) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public String getQueryURN() {
 		return queryURN;
 	}
@@ -79,14 +86,14 @@ public class customerQuery {
 	public void setQueryclosedDate(Date queryclosedDate) {
 		this.queryclosedDate = queryclosedDate;
 	}
-	public void setQueryType(String queryType) {
-		// TODO Auto-generated method stub
+	public void setQueryCreatorID(String creatorID) {
+		this.creatorID = loginController.currentUsername;
 		
 	}
-	public void setQueryOpenDate(LocalDateTime localDateTime) {
+	public String getQueryID() {
 		// TODO Auto-generated method stub
-		
+		return loginController.currentUsername;
 	}
-	
+
 	
 }

@@ -87,18 +87,23 @@ public class createQueryController {
 		    // Specify the file path of the CSV file
 		    String csvFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\customer_queries.csv";
 
+		    // Get the current user's ID
+		    String creatorID = getQueryID();
+
 		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 		        String line;
 		        while ((line = br.readLine()) != null) {
 		            String[] row = line.split(","); // assuming comma-separated values
-		            data.add(row);
+		            if (row.length > 7 && row[7].equals(creatorID)) { // Check if creatorID matches
+		                data.add(row);
+		            }
 		        }
 		    } catch (IOException ex) {
 		        ex.printStackTrace();
 		    }
 
 		    // Get column names from user input (modify this as needed)
-		    String[] columnNames = {"URN", "Name", "Email", "Query", "Priority", "Date/Time", };
+		    String[] columnNames = {"URN", "Name", "Email", "Query", "Priority", "type", "date", "ID"};
 
 		    // Create TableColumns and add them to the TableView
 		    for (int i = 0; i < columnNames.length; i++) {
@@ -125,7 +130,12 @@ public class createQueryController {
 		            if (result.isPresent() && result.get() == ButtonType.OK) {
 		                String[] row = event.getRowValue();
 		                row[colIndex] = event.getNewValue();
-		                saveDataToCSV(data, csvFile); // Save changes to CSV file
+		                try {
+							saveDataToCSV(data, csvFile);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} // Save changes to CSV file
 		            } else {
 		                // Cancel edit if user cancels the alert
 		                userTable.getItems().set(event.getTablePosition().getRow(), event.getRowValue());
@@ -144,19 +154,22 @@ public class createQueryController {
 		    userTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		}
 
-		private void saveDataToCSV(ObservableList<String[]> data, String csvFile) {
-		    try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFile))) {
-		        for (String[] row : data) {
-		            bw.write(String.join(",", row));
-		            bw.newLine();
-		        }
-		    } catch (IOException ex) {
-		        ex.printStackTrace();
-		    }
+		public String getQueryID() {
+		    // TODO: Replace with your implementation to get the current user's ID
+		    return loginController.currentUsername;
 		}
 
 
 
+		private void saveDataToCSV(ObservableList<String[]> data, String filePath) throws IOException {
+		    try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+		        // Write data to CSV file
+		        for (String[] row : data) {
+		            bw.write(String.join(",", row));
+		            bw.newLine();
+		        }
+		    }
+		}
 
 
 @FXML

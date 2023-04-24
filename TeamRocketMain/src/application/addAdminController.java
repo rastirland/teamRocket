@@ -183,7 +183,7 @@ public class addAdminController {
         ArrayList<admin> adminList = new ArrayList<>();
         while (scanner.hasNext()) {
             String[] usernameAndPassword = scanner.nextLine().split(",");
-            admin admin = new admin();
+            admin admin = new admin(null);
             admin.setUsername(usernameAndPassword[0]);
             admin.setPassword(usernameAndPassword[1]);
             adminList.add(admin);
@@ -198,9 +198,11 @@ public class addAdminController {
     String username = userNameTextField.getText();
     String password = getPassword();
     String role = accessLevelField.getValue(); // Get selected item from ComboBox
+    admin admin = new admin(null); // Create an instance of the Admin class
+    String creatorID = admin.generateRandomId(); // Generate creatorID using generateRandomId() method
     BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 
-    writer.write(username + "," + encryptor.encryptString(password) + "," + role + "\n"); // Include role in the string to write
+    writer.write(username + "," + encryptor.encryptString(password) + "," + role + "," + creatorID + "\n"); // Include role and creatorID in the string to write
     writer.close();
 }
 	    

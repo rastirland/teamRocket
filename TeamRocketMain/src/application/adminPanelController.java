@@ -1,6 +1,7 @@
 package application;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,10 +22,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 public class adminPanelController {
@@ -81,28 +84,84 @@ public class adminPanelController {
 	@FXML
 	void getUsers(ActionEvent e) throws Exception {
 		
-		userTable.getColumns().clear();
-	    userTable.getItems().clear();
+		  System.out.println("Button clicked."); // Log message to indicate button click
 
-		ObservableList<String[]> data = adminPanelController.getUserAccounts("userData.csv");
-		for (int i = 0; i < data.get(0).length; i++) {
+		    // Clear existing columns and items from the TableView
+		    userTable.getColumns().clear();
+		    userTable.getItems().clear();
 
-			TableColumn<String[], String> column = new TableColumn<>();
-			final int colIndex = i;
-			if (i == 0) {
-				column.setText("Username");
-			} else if (i == 1) {
-				column.setText("Password");
-			}
+		    // Create ObservableList to hold the data
+		    ObservableList<String[]> data = FXCollections.observableArrayList();
 
-			column.setCellValueFactory(cellData -> {
-				String[] rowData = cellData.getValue();
-				return new ReadOnlyStringWrapper(rowData[colIndex]);
-			});
-			userTable.getColumns().add(column);
+		    // Specify the file path of the CSV file
+		    String csvFile = "C:\\Users\\rasti\\git\\teamRocket\\TeamRocketMain\\userData.csv";
+
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        String line;
+		        while ((line = br.readLine()) != null) {
+		            String[] row = line.split(","); // assuming comma-separated values
+		            data.add(row);
+		        }
+		    } catch (IOException ex) {
+		        ex.printStackTrace();
+		    }
+
+		    // Get column names from user input (modify this as needed)
+		    String[] columnNames = {"UserName", "Password", "Role", "ID"};
+
+		    // Create TableColumns and add them to the TableView
+		    for (int i = 0; i < columnNames.length; i++) {
+		        final int colIndex = i;
+		        TableColumn<String[], String> col = new TableColumn<>(columnNames[i]);
+		        col.setCellValueFactory(param -> {
+		            String[] row = param.getValue();
+		            if (row != null && colIndex < row.length) {
+		                return new ReadOnlyStringWrapper(row[colIndex]);
+		            } else {
+		                return new ReadOnlyStringWrapper("");
+		            }
+		        });
+		        col.setCellFactory(TextFieldTableCell.forTableColumn());
+		        col.setEditable(true); // Set column editable
+		        col.setOnEditCommit(event -> {
+		            // Show an alert dialog to confirm save changes
+		            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		            alert.setTitle("Save Changes");
+		            alert.setHeaderText("Save Changes");
+		            alert.setContentText("Are you sure you want to save changes?");
+		            Optional<ButtonType> result = alert.showAndWait();
+
+		            if (result.isPresent() && result.get() == ButtonType.OK) {
+		                String[] row = event.getRowValue();
+		                row[colIndex] = event.getNewValue();
+		                saveDataToCSV(data, csvFile); // Save changes to CSV file
+		            } else {
+		                // Cancel edit if user cancels the alert
+		                userTable.getItems().set(event.getTablePosition().getRow(), event.getRowValue());
+		            }
+		        });
+		        userTable.getColumns().add(col);
+		    }
+
+		    // Set the populated data to the TableView
+		    userTable.setItems(data);
+
+		    // Enable editing for the table
+		    userTable.setEditable(true);
+
+		    // Enable row selection in TableView (optional)
+		    userTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		}
 
-		userTable.setItems(data);
+		private void saveDataToCSV(ObservableList<String[]> data, String csvFile) {
+		    try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFile))) {
+		        for (String[] row : data) {
+		            bw.write(String.join(",", row));
+		            bw.newLine();
+		        }
+		    } catch (IOException ex) {
+		        ex.printStackTrace();
+		    }
 
 	}
 

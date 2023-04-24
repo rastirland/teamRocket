@@ -1,6 +1,7 @@
 package application;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class admin implements Serializable {
 
@@ -12,6 +13,7 @@ public class admin implements Serializable {
     private String firstName;
     private String surName;
     private String email;
+    private String CreatorId;;
     
     
     private AccessLevel accessLevel; // Fix: Use AccessLevel enum as the type for accessLevel
@@ -20,7 +22,8 @@ public class admin implements Serializable {
         ADMIN,
         HANDLER,
         CREATOR,
-        ANALYST 
+        ANALYST,
+        INACTIVE
         
         
     }
@@ -78,5 +81,22 @@ public class admin implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getCreatorId() {
+		return CreatorId;
+	}
+
+	public void setCreatorId(String creatorId) {
+		 String randomId = generateRandomId();
+		    CreatorId = randomId;
+	}
+	
+	
+	public String generateRandomId() {
+	    Random random = new Random();
+	    int randomId = random.nextInt(900) + 100; // Generates a random number between 100 and 999 (inclusive)
+	    return String.valueOf(randomId); // Converts the random number to a string and returns it
+	}
+	
 	
 }

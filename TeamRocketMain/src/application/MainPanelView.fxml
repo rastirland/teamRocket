@@ -2,10 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainPanelController">
    <children>
@@ -17,7 +19,7 @@
                   <Font size="38.0" />
                </font>
             </Label>
-            <Button fx:id="btn_PropertyList" layoutX="39.0" layoutY="158.0" mnemonicParsing="false" onAction="#goToPropertyList" prefHeight="25.0" prefWidth="136.0" />
+            <Button fx:id="btn_PropertyList" layoutX="39.0" layoutY="158.0" mnemonicParsing="false" onAction="#goToPropertyList" prefHeight="25.0" prefWidth="136.0" text="Creator Section" />
             <ImageView fitHeight="406.0" fitWidth="417.0" layoutX="211.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@barclays-logo-1.png" />
@@ -28,13 +30,19 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <Button fx:id="customerListBtn" layoutX="39.0" layoutY="195.0" mnemonicParsing="false" onAction="#goToCustomers" prefHeight="25.0" prefWidth="136.0" />
-            <Button fx:id="hirePropertyListBtn" layoutX="39.0" layoutY="228.0" mnemonicParsing="false" onAction="#goToHireReturn" prefHeight="25.0" prefWidth="136.0" />
+            <Button fx:id="customerListBtn" layoutX="39.0" layoutY="195.0" mnemonicParsing="false" onAction="#goToCustomers" prefHeight="25.0" prefWidth="136.0" text="Handler Section" />
+            <Button fx:id="hirePropertyListBtn" layoutX="39.0" layoutY="228.0" mnemonicParsing="false" onAction="#goToHireReturn" prefHeight="25.0" prefWidth="136.0" text="Analyst Section" />
             <Label layoutX="517.0" layoutY="35.0" text="Admin" textFill="#00afe9">
                <font>
                   <Font size="38.0" />
                </font>
             </Label>
+            <TextField fx:id="statCreated" editable="false" layoutX="43.0" layoutY="289.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="statHandler" editable="false" layoutX="156.0" layoutY="289.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="statAnalyst" editable="false" layoutX="273.0" layoutY="289.0" prefHeight="25.0" prefWidth="81.0" />
+            <Text layoutX="39.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Created Queries" />
+            <Text layoutX="274.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Queries Ready for responce " textAlignment="CENTER" wrappingWidth="79.564453125" />
+            <Text layoutX="160.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Queries" />
          </children>
       </AnchorPane>
    </children>

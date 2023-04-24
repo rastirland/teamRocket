@@ -25,12 +25,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
@@ -38,6 +40,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class analystController {
@@ -109,7 +114,7 @@ public class analystController {
 			    }
 
 			    // Get column names from user input (modify this as needed)
-			    String[] columnNames = {"URN", "Name", "Email", "Query", "Priority", "Date/Time", };
+			    String[] columnNames = {"URN", "Name", "Email", "Query", "Priority", "role", "Date/Time", };
 
 			    // Create TableColumns and add them to the TableView
 			    for (int i = 0; i < columnNames.length; i++) {
@@ -252,6 +257,45 @@ public void acceptQueryBtn(ActionEvent e) {
         saveChangesThread.start();
     }
 }
+
+private String[] columnNames = {"URN", "Name", "Email", "Query", "Priority", "role", "Date/Time", "ID"};
+
+public void initialize() {
+    // Retrieve the current from my loginController, 
+	// and should initialise when class first starts to display welcome "username"
+	   // Add selection listener to the TableView
+	userTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+	    if (newSelection != null) {
+	        // Get the selected row data
+	        String[] rowData = newSelection;
+
+	        // Create a popup window to display the selected row data
+	        Stage popupStage = new Stage();
+	        popupStage.initModality(Modality.APPLICATION_MODAL);
+	        popupStage.setTitle("Selected Row Data");
+	        popupStage.setMinWidth(300);
+	        popupStage.setMinHeight(200);
+
+	        VBox vBox = new VBox();
+	        vBox.setSpacing(10);
+	        vBox.setPadding(new Insets(10));
+
+	        // Display the selected row data in a Label with increased font size
+	        for (int i = 0; i < rowData.length; i++) {
+	            Label label = new Label(columnNames[i] + ": " + rowData[i]);
+	            label.setStyle("-fx-font-size: 24px;"); // Set font size to 24 pixels
+	            vBox.getChildren().add(label);
+	        }
+
+	        Scene scene = new Scene(vBox);
+	        popupStage.setScene(scene);
+	        popupStage.showAndWait();
+	    }
+	}); 
+}
+
+
+
 
 }
 

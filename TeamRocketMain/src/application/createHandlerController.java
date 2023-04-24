@@ -101,7 +101,7 @@ public class createHandlerController {
 		    }
 
 		    // Get column names from user input (modify this as needed)
-		    String[] columnNames = {"URN", "Name", "Email", "Query", "Priority", "Date/Time", };
+		    String[] columnNames = {"URN", "Name", "Email", "Query", "Priority","ID", "Date/Time", };
 
 		    // Create TableColumns and add them to the TableView
 		    for (int i = 0; i < columnNames.length; i++) {
